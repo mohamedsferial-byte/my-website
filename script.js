@@ -20,7 +20,7 @@ console.log("Menu products:", menu.length);
 console.log("Menu container:", menuContainer);
 
 if (menuContainer) {
-  menuContainer.innerHTML = menu.map(p => '
+  menuContainer.innerHTML = menu.map(p => `
     <article class="card">
       <img src="${p.img}" alt="${p.name}">
       <div class="card-body">
@@ -30,7 +30,7 @@ if (menuContainer) {
         <button class="btn" data-add="${p.id}">Add to Cart</button>
       </div>
     </article>
- ' ).join('');
+    `).join('');
 
   menuContainer.addEventListener('click', e => {
     const b = e.target.closest('[data-add]');
