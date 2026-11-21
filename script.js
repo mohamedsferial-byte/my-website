@@ -13,6 +13,7 @@ const getCart = () => JSON.parse(localStorage.getItem(CART) || '[]');
 const saveCart = c => localStorage.setItem(CART, JSON.stringify(c));
 const money = n => 'EGP ' + Number(n).toLocaleString('en');
 
+// MENU
 const menuContainer = document.querySelector('#menuProducts');
 
 if (menuContainer) {
@@ -23,9 +24,7 @@ if (menuContainer) {
         <h3>${p.name}</h3>
         <p>${p.desc}</p>
         <span class="price">${money(p.price)}</span>
-        <button class="btn" data-add="${p.id}">
-          Add to Cart
-        </button>
+        <button class="btn" data-add="${p.id}">Add to Cart</button>
       </div>
     </article>
   ).join('');
@@ -41,7 +40,6 @@ if (menuContainer) {
     item ? item.qty++ : c.push({...p, qty: 1});
 
     saveCart(c);
-
     b.textContent = 'Added ✓';
 
     setTimeout(() => {
@@ -50,6 +48,7 @@ if (menuContainer) {
   });
 }
 
+// CART
 const cartNode = document.querySelector('#cartItems');
 
 if (cartNode) {
@@ -81,6 +80,7 @@ if (cartNode) {
     ;
 
     let total = c.reduce((a, p) => a + p.price * p.qty, 0);
+
     document.querySelector('#subtotal').textContent = money(total);
     document.querySelector('#total').textContent = money(total);
   }
@@ -92,11 +92,15 @@ if (cartNode) {
 
     if (q) {
       let p = c.find(x => x.id === q.dataset.id);
-      p.qty += Number(q.dataset.qty);
-      c = c.filter(x => x.qty > 0);
+      if (p) {
+        p.qty += Number(q.dataset.qty);
+        c = c.filter(x => x.qty > 0);
+      }
     }
 
-    if (r) c = c.filter(x => x.id !== r.dataset.remove);
+    if (r) {
+      c = c.filter(x => x.id !== r.dataset.remove);
+    }
 
     saveCart(c);
     render();
@@ -104,33 +108,42 @@ if (cartNode) {
 
   render();
 
-  document.querySelector('#checkout').addEventListener('click', () => {
-    document.querySelector('#checkoutMsg').textContent =
-      getCart().length
-        ? 'Checkout is a demo only; no real order/payment is submitted.'
-        : 'Add products to your cart first.';
-  });
+  const checkout = document.querySelector('#checkout');
+
+  if (checkout) {
+    checkout.addEventListener('click', () => {
+      document.querySelector('#checkoutMsg').textContent =
+        getCart().length
+          ? 'Checkout is a demo only; no real order/payment is submitted.'
+          : 'Add products to your cart first.';
+    });
+  }
 }
 
+// MOBILE MENU
 const toggle = document.querySelector('.menu-toggle');
 
 if (toggle) {
-  toggle.addEventListener('click', () =>
-    document.querySelector('nav').classList.toggle('open')
-  );
+  toggle.addEventListener('click', () => {
+    document.querySelector('nav').classList.toggle('open');
+  });
 }
 
+// FOOTER YEAR
 document.querySelectorAll('.year').forEach(
   x => x.textContent = new Date().getFullYear()
 );
 
+// CONTACT FORM
 const form = document.querySelector('#contactForm');
 
 if (form) {
   form.addEventListener('submit', e => {
     e.preventDefault();
+
     document.querySelector('#formMsg').textContent =
       'Thanks! This demo form is ready, but messages are not sent to a server.';
+
     form.reset();
   });
 }
