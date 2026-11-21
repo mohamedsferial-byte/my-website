@@ -23,7 +23,9 @@ if (menuContainer) {
         <h3>${p.name}</h3>
         <p>${p.desc}</p>
         <span class="price">${money(p.price)}</span>
-        <button class="btn" data-add="${p.id}">Add to Cart</button>
+        <button class="btn" data-add="${p.id}">
+          Add to Cart
+        </button>
       </div>
     </article>
   ).join('');
@@ -36,11 +38,15 @@ if (menuContainer) {
     let p = menu.find(x => x.id === b.dataset.add);
     let item = c.find(x => x.id === p.id);
 
-    item ? item.qty++ : c.push({...p, qty:1});
+    item ? item.qty++ : c.push({...p, qty: 1});
+
     saveCart(c);
 
     b.textContent = 'Added ✓';
-    setTimeout(() => b.textContent = 'Add to Cart', 850);
+
+    setTimeout(() => {
+      b.textContent = 'Add to Cart';
+    }, 850);
   });
 }
 
