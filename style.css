@@ -347,3 +347,11 @@ nav a.active {
 .card img:not([src]) {
     display: none;
 }
+
+.about-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+    display: block;
+}
