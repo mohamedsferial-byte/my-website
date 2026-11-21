@@ -15,6 +15,9 @@ const money = n => 'EGP ' + Number(n).toLocaleString('en');
 
 // MENU
 const menuContainer = document.querySelector('#menuProducts');
+console.log("Menu script is working!");
+console.log("Menu products:", menu.length);
+console.log("Menu container:", menuContainer);
 
 if (menuContainer) {
   menuContainer.innerHTML = menu.map(p => '
