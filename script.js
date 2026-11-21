@@ -60,7 +60,7 @@ if (cartNode) {
   function render() {
     let c = getCart();
 
-    cartNode.innerHTML = c.length ? c.map(p => 
+    cartNode.innerHTML = c.length ? c.map(p => `
   <article class="cart-row">
     <img src="${p.img}" alt="${p.name}">
     <div>
@@ -77,12 +77,12 @@ if (cartNode) {
       <button class="remove" data-remove="${p.id}">Remove</button>
     </div>
   </article>
-).join('') : 
+`).join('') : `
   <div class="empty">
     <h3>Your cart is empty</h3>
     <a class="btn" href="menu.html">Browse menu</a>
   </div>
-;
+`;
 
     let total = c.reduce((a, p) => a + p.price * p.qty, 0);
 
